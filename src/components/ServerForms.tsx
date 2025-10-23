@@ -26,19 +26,42 @@ const ServerForms = () => {
     link: "",
   });
 
-  const handleEventSubmit = (e: React.FormEvent) => {
+  const handleEventSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Event Application Submitted!",
-      description: "Your application has been received. Note: Discord sync requires Lovable Cloud to be enabled.",
-    });
-    setEventFormData({
-      discordUsername: "",
-      minecraftUsername: "",
-      eventType: "",
-      availability: "",
-      additionalInfo: "",
-    });
+    
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-event-application`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(eventFormData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit application');
+      }
+
+      toast({
+        title: "Application Submitted!",
+        description: "Your event application has been posted to Discord!",
+      });
+      
+      setEventFormData({
+        discordUsername: "",
+        minecraftUsername: "",
+        eventType: "",
+        availability: "",
+        additionalInfo: "",
+      });
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your application. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleMediaSubmit = (e: React.FormEvent) => {
