@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileUp, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabase } from "@/integrations/supabase/client";
 
 const ServerForms = () => {
   const { toast } = useToast();
@@ -40,6 +40,7 @@ const ServerForms = () => {
         return;
       }
 
+      const supabase = getSupabase();
       const { data, error } = await supabase.functions.invoke('submit-event-application', {
         body: eventFormData,
       });
