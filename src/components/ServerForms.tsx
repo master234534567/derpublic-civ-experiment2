@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileUp, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ServerForms = () => {
   const { toast } = useToast();
@@ -30,16 +31,12 @@ const ServerForms = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/submit-event-application`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(eventFormData),
+      const { data, error } = await supabase.functions.invoke('submit-event-application', {
+        body: eventFormData,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit application');
+      if (error) {
+        throw error;
       }
 
       toast({
