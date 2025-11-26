@@ -71,19 +71,49 @@ const ServerForms = () => {
     }
   };
 
-  const handleMediaSubmit = (e: React.FormEvent) => {
+  const handleMediaSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Media Submission Received!",
-      description: "Your submission has been received. Note: Discord sync requires Lovable Cloud to be enabled.",
-    });
-    setMediaFormData({
-      discordUsername: "",
-      submissionType: "",
-      title: "",
-      description: "",
-      link: "",
-    });
+    
+    try {
+      if (!import.meta.env.VITE_SUPABASE_URL) {
+        toast({
+          title: "Configuration Required",
+          description: "Lovable Cloud is still provisioning. Please wait a moment and try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const supabase = getSupabase();
+      const { data, error } = await supabase.functions.invoke('submit-media-submission', {
+        body: {
+          ...mediaFormData,
+          mediaLink: mediaFormData.link, // Rename for edge function
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Media Submitted!",
+        description: "Your media submission has been sent to Discord.",
+      });
+      
+      setMediaFormData({
+        discordUsername: "",
+        submissionType: "",
+        title: "",
+        description: "",
+        link: "",
+      });
+    } catch (error) {
+      console.error('Error submitting media:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your media. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
