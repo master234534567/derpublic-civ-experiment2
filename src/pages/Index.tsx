@@ -2,16 +2,23 @@ import Hero from "@/components/Hero";
 import Wiki from "@/components/Wiki";
 import Rules from "@/components/Rules";
 import ServerForms from "@/components/ServerForms";
-import RecentVideos from "@/components/RecentVideos";
+import MiniGames from "@/components/MiniGames";
 import ApplicationForm from "@/components/ApplicationForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { motion } from "framer-motion";
 
 const Index = () => {
   return (
     <main className="min-h-screen">
       <Hero />
       
-      <section className="py-20 px-4">
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="py-20 px-4"
+      >
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
@@ -42,9 +49,9 @@ const Index = () => {
             </TabsContent>
           </Tabs>
         </div>
-      </section>
+      </motion.section>
 
-      <RecentVideos />
+      <MiniGames />
       <ApplicationForm />
       
       <footer className="py-8 text-center border-t border-border">
