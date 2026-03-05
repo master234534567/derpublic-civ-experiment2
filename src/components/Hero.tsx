@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 import derpublicLogo from "@/assets/derpublic-logo.png";
 
 const Hero = () => {
@@ -24,24 +25,44 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 text-center space-y-8 max-w-4xl mx-auto">
-        <div className="animate-float">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="animate-float"
+        >
           <img 
             src={derpublicLogo} 
             alt="Derpublic Minecraft Server Logo" 
             className="w-full max-w-2xl mx-auto drop-shadow-2xl"
             style={{ filter: "drop-shadow(0 0 30px rgba(255, 193, 7, 0.3))" }}
           />
-        </div>
+        </motion.div>
         
-        <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-tight">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-primary to-secondary bg-clip-text text-transparent leading-tight"
+        >
           Derpublic Minecraft Server
-        </h1>
+        </motion.h1>
         
-        <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto"
+        >
           Where civilization grows and prospers! Join the social experiment today.
-        </p>
+        </motion.p>
         
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
+        >
           <Button 
             size="lg" 
             className="text-lg px-8 py-6 bg-gradient-to-r from-primary to-primary hover:shadow-glow transition-all duration-300"
@@ -62,7 +83,7 @@ const Hero = () => {
               Learn More
             </a>
           </Button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
