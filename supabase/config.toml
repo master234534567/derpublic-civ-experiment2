@@ -1,5 +1,1 @@
-[functions.submit-event-application]
-verify_jwt = false
-
-[functions.submit-media-submission]
-verify_jwt = false
+project_id = "evtqvmotstmimugxhvde"
