@@ -1,0 +1,35 @@
+import React from "react";
+
+export default function MoreRules() {
+  return (
+    <section>
+      <header>
+        <h1>More rules ⚖️</h1>
+        <p>Clear, concise rules and examples so everyone knows what’s allowed.</p>
+      </header>
+
+      <article>
+        <h2>Core Rules</h2>
+        <ul>
+          <li><strong>No harassment:</strong> No hate speech, targeted insults, or doxxing.</li>
+          <li><strong>No cheating/exploits:</strong> Using bugs or third‑party tools is prohibited.</li>
+          <li><strong>No griefing:</strong> Respect other players' builds and progress.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h2>Examples & Clarifications</h2>
+        <p>Short examples of rule violations and acceptable alternatives so staff and players have consistent expectations.</p>
+      </article>
+
+      <article>
+        <h2>Enforcement</h2>
+        <ul>
+          <li><strong>Warnings:</strong> Minor infractions receive warnings.</li>
+          <li><strong>Temporary bans:</strong> Repeated or severe violations.</li>
+          <li><strong>Appeals:</strong> Use the Rank Applications page to submit an appeal with evidence.</li>
+        </ul>
+      </article>
+    </section>
+  );
+}

@@ -29,17 +29,16 @@ const navItems = [
 
 const sectionItems = [
   { title: "Wiki", url: "/#wiki", icon: BookOpen },
-  { title: "Rules", url: "/#rules", icon: Shield },
+  { title: "More rules", url: "/#rules", icon: Shield },
   { title: "Forms", url: "/#forms", icon: FileText },
-  { title: "Mini Games", url: "/#minigames", icon: Gamepad2 },
-  { title: "Application", url: "/#application", icon: ClipboardList },
+  { title: "Extra mini games", url: "/#minigames", icon: Gamepad2 },
+  { title: "Rank Applications", url: "/#application", icon: ClipboardList },
 ];
 
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
 
   return (
     <Sidebar collapsible="icon" className="border-r border-border bg-card">
