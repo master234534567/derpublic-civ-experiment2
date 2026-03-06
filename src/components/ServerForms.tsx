@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileUp, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { getSupabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/client";
 
 const ServerForms = () => {
   const { toast } = useToast();
@@ -31,16 +31,6 @@ const ServerForms = () => {
     e.preventDefault();
     
     try {
-      if (!import.meta.env.VITE_SUPABASE_URL) {
-        toast({
-          title: "Configuration Required",
-          description: "Backend is still provisioning. Please wait a moment and try again.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      const supabase = getSupabase();
       const { data, error } = await supabase.functions.invoke('submit-event-application', {
         body: eventFormData,
       });
@@ -74,16 +64,6 @@ const ServerForms = () => {
     e.preventDefault();
     
     try {
-      if (!import.meta.env.VITE_SUPABASE_URL) {
-        toast({
-          title: "Configuration Required",
-          description: "Backend is still provisioning. Please wait a moment and try again.",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      const supabase = getSupabase();
       const { data, error } = await supabase.functions.invoke('submit-media-submission', {
         body: {
           ...mediaFormData,
