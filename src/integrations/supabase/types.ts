@@ -14,7 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      player_ranks: {
+        Row: {
+          id: string
+          joined_at: string
+          minecraft_username: string
+          points: number
+          rank: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          joined_at?: string
+          minecraft_username: string
+          points?: number
+          rank?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          joined_at?: string
+          minecraft_username?: string
+          points?: number
+          rank?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          minecraft_username: string | null
+          privacy_show_profile: boolean
+          privacy_show_rank: boolean
+          updated_at: string
+          user_id: string
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          minecraft_username?: string | null
+          privacy_show_profile?: boolean
+          privacy_show_rank?: boolean
+          updated_at?: string
+          user_id: string
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          minecraft_username?: string | null
+          privacy_show_profile?: boolean
+          privacy_show_rank?: boolean
+          updated_at?: string
+          user_id?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

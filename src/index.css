@@ -42,21 +42,14 @@ All colors MUST be HSL.
     --gradient-gold: linear-gradient(135deg, hsl(45 100% 51%), hsl(40 100% 60%));
     --shadow-glow: 0 0 40px hsl(45 100% 51% / 0.3);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 240 20% 10%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 45 100% 51%;
+    --sidebar-primary-foreground: 240 25% 8%;
+    --sidebar-accent: 240 15% 18%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 240 15% 20%;
+    --sidebar-ring: 45 100% 51%;
   }
 
   .dark {
