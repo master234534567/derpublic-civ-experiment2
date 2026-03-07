@@ -8,7 +8,6 @@ import {
   Trophy,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -28,17 +27,16 @@ const navItems = [
 ];
 
 const sectionItems = [
-  { title: "Wiki", url: "/#wiki", icon: BookOpen },
-  { title: "More rules", url: "/#rules", icon: Shield },
-  { title: "Forms", url: "/#forms", icon: FileText },
-  { title: "Extra mini games", url: "/#minigames", icon: Gamepad2 },
-  { title: "Rank Applications", url: "/#application", icon: ClipboardList },
+  { title: "Wiki", url: "/wiki", icon: BookOpen },
+  { title: "More Rules", url: "/more-rules", icon: Shield },
+  { title: "Forms", url: "/forms", icon: FileText },
+  { title: "Extra Mini Games", url: "/extra-mini-games", icon: Gamepad2 },
+  { title: "Rank Applications 📋", url: "/rank-applications", icon: ClipboardList },
 ];
 
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const location = useLocation();
 
   return (
     <Sidebar collapsible="icon" className="border-r border-border bg-card">
@@ -73,13 +71,14 @@ export function AppSidebar() {
               {sectionItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a
-                      href={item.url}
+                    <NavLink
+                      to={item.url}
                       className="flex items-center gap-2 px-3 py-2 rounded-md text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+                      activeClassName="bg-muted text-primary font-medium"
                     >
                       <item.icon className="h-4 w-4 shrink-0" />
                       {!collapsed && <span>{item.title}</span>}
-                    </a>
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
