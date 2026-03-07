@@ -8,6 +8,11 @@ import Index from "./pages/Index";
 import RankLookup from "./pages/RankLookup";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
+import Wiki from "./pages/Wiki";
+import MoreRules from "./pages/MoreRules";
+import Forms from "./pages/Forms";
+import ExtraMiniGames from "./pages/ExtraMiniGames";
+import RankApplications from "./pages/RankApplications";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +26,11 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/rank-lookup" element={<RankLookup />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/wiki" element={<Wiki />} />
+          <Route path="/more-rules" element={<MoreRules />} />
+          <Route path="/forms" element={<Forms />} />
+          <Route path="/extra-mini-games" element={<ExtraMiniGames />} />
+          <Route path="/rank-applications" element={<RankApplications />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
