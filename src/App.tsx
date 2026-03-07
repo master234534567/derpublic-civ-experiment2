@@ -13,6 +13,8 @@ import MoreRules from "./pages/MoreRules";
 import Forms from "./pages/Forms";
 import ExtraMiniGames from "./pages/ExtraMiniGames";
 import RankApplications from "./pages/RankApplications";
+import Tickets from "./pages/Tickets";
+import Reviews from "./pages/Reviews";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,8 @@ const App = () => (
           <Route path="/forms" element={<Forms />} />
           <Route path="/extra-mini-games" element={<ExtraMiniGames />} />
           <Route path="/rank-applications" element={<RankApplications />} />
+          <Route path="/tickets" element={<Tickets />} />
+          <Route path="/reviews" element={<Reviews />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
