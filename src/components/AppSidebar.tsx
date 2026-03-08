@@ -9,8 +9,10 @@ import {
   Star,
   User,
   MessageSquare,
+  CalendarDays,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import UpcomingEvents from "@/components/UpcomingEvents";
 import {
   Sidebar,
   SidebarContent,
@@ -22,6 +24,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
 const navItems = [
   { title: "Home", url: "/", icon: BookOpen },
@@ -89,6 +92,14 @@ export function AppSidebar() {
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <Separator className="my-2" />
+
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <UpcomingEvents collapsed={collapsed} />
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
