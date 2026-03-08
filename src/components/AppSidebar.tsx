@@ -4,11 +4,11 @@ import {
   FileText,
   Gamepad2,
   ClipboardList,
-  Settings,
   Trophy,
   Ticket,
   Star,
   User,
+  MessageSquare,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
@@ -37,6 +37,7 @@ const sectionItems = [
   { title: "Rank Applications", url: "/rank-applications", icon: ClipboardList },
   { title: "Tickets", url: "/tickets", icon: Ticket },
   { title: "Reviews", url: "/reviews", icon: Star },
+  { title: "Chat", url: "/chat", icon: MessageSquare },
 ];
 
 export function AppSidebar() {
