@@ -15,6 +15,7 @@ import ExtraMiniGames from "./pages/ExtraMiniGames";
 import RankApplications from "./pages/RankApplications";
 import Tickets from "./pages/Tickets";
 import Reviews from "./pages/Reviews";
+import ChatPage from "./pages/Chat";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
           <Route path="/rank-applications" element={<RankApplications />} />
           <Route path="/tickets" element={<Tickets />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/chat" element={<ChatPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
