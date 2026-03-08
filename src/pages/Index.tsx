@@ -12,11 +12,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 
 const Index = () => {
-  const [introComplete, setIntroComplete] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   return (
     <>
-      {!introComplete && <IntroSequence onComplete={() => setIntroComplete(true)} />}
+      {showIntro && <IntroSequence onComplete={() => setShowIntro(false)} />}
       <main className="min-h-screen">
         <Hero />
         
