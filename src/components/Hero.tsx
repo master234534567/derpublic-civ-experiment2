@@ -1,12 +1,23 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Copy, Check } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 import derpublicLogo from "@/assets/derpublic-logo.png";
 
 const Hero = () => {
+  const [copied, setCopied] = useState(false);
+  const { toast } = useToast();
+
+  const copyIP = () => {
+    navigator.clipboard.writeText("durpublic.net");
+    setCopied(true);
+    toast({ title: "Server IP copied!", description: "durpublic.net" });
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
-      
       <div className="absolute inset-0 overflow-hidden">
         {[...Array(50)].map((_, i) => (
           <div
@@ -71,6 +82,16 @@ const Hero = () => {
             <a href="https://discord.com/invite/the-derpublic-1316447324490432623" target="_blank" rel="noopener noreferrer">
               Join Discord <ExternalLink className="ml-2 h-5 w-5" />
             </a>
+          </Button>
+
+          <Button
+            size="lg"
+            variant="outline"
+            onClick={copyIP}
+            className="text-lg px-8 py-6 border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 gap-2"
+          >
+            {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
+            {copied ? "Copied!" : "Copy Server IP!"}
           </Button>
           
           <Button 

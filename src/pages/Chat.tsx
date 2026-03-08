@@ -2,18 +2,45 @@ import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageSquare, Users, UserPlus, Send, Trash2, Search } from "lucide-react";
+import { MessageSquare, Users, UserPlus, Send, Trash2, Search, Image, Link } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+const IMAGE_URL_REGEX = /https?:\/\/\S+\.(gif|png|jpg|jpeg|webp)(\?\S*)?/gi;
+
+const MessageContent = ({ message, imageUrl }: { message: string; imageUrl?: string | null }) => {
+  // Render inline images from URLs in text
+  const parts = message.split(IMAGE_URL_REGEX);
+  const urls = message.match(IMAGE_URL_REGEX) || [];
+
+  return (
+    <div className="space-y-2">
+      <p className="text-sm text-foreground whitespace-pre-wrap break-words">
+        {urls.length > 0
+          ? message.replace(IMAGE_URL_REGEX, "").trim() || null
+          : message}
+      </p>
+      {urls.map((url, i) => (
+        <img key={i} src={url} alt="shared" className="max-w-full max-h-64 rounded-lg border border-border" loading="lazy" />
+      ))}
+      {imageUrl && (
+        <img src={imageUrl} alt="uploaded" className="max-w-full max-h-64 rounded-lg border border-border" loading="lazy" />
+      )}
+    </div>
+  );
+};
 
 // ─── Global Chat ───
 const GlobalChat = ({ user, isAdmin }: { user: any; isAdmin: boolean }) => {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMsg, setNewMsg] = useState("");
   const [profile, setProfile] = useState<any>(null);
+  const [uploading, setUploading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -37,6 +64,57 @@ const GlobalChat = ({ user, isAdmin }: { user: any; isAdmin: boolean }) => {
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
 
+  const uploadImage = async (file: File): Promise<string | null> => {
+    const ext = file.name.split(".").pop();
+    const path = `${user.id}/${Date.now()}.${ext}`;
+    const { error } = await supabase.storage.from("chat-media").upload(path, file);
+    if (error) { toast({ title: "Upload failed", description: error.message, variant: "destructive" }); return null; }
+    const { data } = supabase.storage.from("chat-media").getPublicUrl(path);
+    return data.publicUrl;
+  };
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !user) return;
+    if (!file.type.startsWith("image/") && !file.type.includes("gif")) {
+      toast({ title: "Only images and GIFs are supported", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "File too large (max 5MB)", variant: "destructive" });
+      return;
+    }
+    setUploading(true);
+    const url = await uploadImage(file);
+    if (url) {
+      const username = profile?.minecraft_username || profile?.username || user.email?.split("@")[0] || "Anonymous";
+      await supabase.from("chat_messages").insert({ user_id: user.id, username, message: newMsg.trim() || "📷", image_url: url });
+      setNewMsg("");
+    }
+    setUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const handlePaste = async (e: React.ClipboardEvent) => {
+    const items = e.clipboardData?.items;
+    if (!items || !user) return;
+    for (const item of Array.from(items)) {
+      if (item.type.startsWith("image/")) {
+        e.preventDefault();
+        const file = item.getAsFile();
+        if (!file) return;
+        setUploading(true);
+        const url = await uploadImage(file);
+        if (url) {
+          const username = profile?.minecraft_username || profile?.username || user.email?.split("@")[0] || "Anonymous";
+          await supabase.from("chat_messages").insert({ user_id: user.id, username, message: "📷", image_url: url });
+        }
+        setUploading(false);
+        return;
+      }
+    }
+  };
+
   const sendMessage = async () => {
     if (!newMsg.trim() || !user) return;
     const username = profile?.minecraft_username || profile?.username || user.email?.split("@")[0] || "Anonymous";
@@ -58,7 +136,7 @@ const GlobalChat = ({ user, isAdmin }: { user: any; isAdmin: boolean }) => {
           <motion.div key={m.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className={`flex items-start gap-3 group ${m.user_id === user.id ? "flex-row-reverse" : ""}`}>
             <div className={`max-w-[70%] p-3 rounded-xl ${m.user_id === user.id ? "bg-primary/20 border border-primary/30" : "bg-muted/50 border border-border"}`}>
               <p className="text-xs font-bold text-primary mb-1">{m.username}</p>
-              <p className="text-sm text-foreground">{m.message}</p>
+              <MessageContent message={m.message} imageUrl={m.image_url} />
               <p className="text-[10px] text-muted-foreground mt-1">{new Date(m.created_at).toLocaleTimeString()}</p>
             </div>
             {(isAdmin || m.user_id === user.id) && (
@@ -71,8 +149,22 @@ const GlobalChat = ({ user, isAdmin }: { user: any; isAdmin: boolean }) => {
         <div ref={bottomRef} />
       </div>
       <div className="flex gap-2 mt-3">
-        <Input value={newMsg} onChange={(e) => setNewMsg(e.target.value)} onKeyDown={(e) => e.key === "Enter" && sendMessage()} placeholder="Type a message..." className="bg-muted/50 flex-1" maxLength={500} />
-        <Button onClick={sendMessage} className="bg-gradient-to-r from-primary to-secondary shadow-[0_0_16px_hsl(45_100%_51%/0.2)]">
+        <input type="file" ref={fileInputRef} accept="image/*,.gif" onChange={handleFileSelect} className="hidden" />
+        <Button variant="outline" size="icon" onClick={() => fileInputRef.current?.click()} disabled={uploading} className="shrink-0">
+          <Image className="h-4 w-4" />
+        </Button>
+        <Input
+          ref={inputRef}
+          value={newMsg}
+          onChange={(e) => setNewMsg(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          onPaste={handlePaste}
+          placeholder={uploading ? "Uploading..." : "Type a message or paste an image..."}
+          className="bg-muted/50 flex-1"
+          maxLength={500}
+          disabled={uploading}
+        />
+        <Button onClick={sendMessage} disabled={uploading} className="bg-gradient-to-r from-primary to-secondary shadow-[0_0_16px_hsl(45_100%_51%/0.2)]">
           <Send className="h-4 w-4" />
         </Button>
       </div>
@@ -231,7 +323,6 @@ const Friends = ({ user }: { user: any }) => {
 
   return (
     <div className="space-y-6">
-      {/* Search */}
       <div className="flex gap-2">
         <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={(e) => e.key === "Enter" && searchUsers()} placeholder="Search by username or IGN..." className="bg-muted/50 flex-1" />
         <Button onClick={searchUsers} variant="outline"><Search className="h-4 w-4" /></Button>
@@ -247,7 +338,6 @@ const Friends = ({ user }: { user: any }) => {
         </div>
       )}
 
-      {/* Pending Requests */}
       {pending.length > 0 && (
         <div className="space-y-2">
           <p className="text-sm font-bold text-primary">Pending Requests</p>
@@ -260,7 +350,6 @@ const Friends = ({ user }: { user: any }) => {
         </div>
       )}
 
-      {/* Friends List */}
       <div className="space-y-2">
         <p className="text-sm font-bold text-primary">Friends ({friends.length})</p>
         {friends.length === 0 && <p className="text-sm text-muted-foreground">No friends yet. Search and add some!</p>}

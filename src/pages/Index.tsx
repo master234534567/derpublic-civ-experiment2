@@ -4,6 +4,8 @@ import Rules from "@/components/Rules";
 import ServerForms from "@/components/ServerForms";
 import MiniGames from "@/components/MiniGames";
 import ApplicationForm from "@/components/ApplicationForm";
+import RankTiers from "@/components/RankTiers";
+import Footer from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
 
@@ -51,14 +53,10 @@ const Index = () => {
         </div>
       </motion.section>
 
+      <RankTiers />
       <MiniGames />
       <ApplicationForm />
-      
-      <footer className="py-8 text-center border-t border-border">
-        <p className="text-muted-foreground">
-          © 2024 Derpublic Minecraft Server. Join the civilization experiment!
-        </p>
-      </footer>
+      <Footer />
     </main>
   );
 };
