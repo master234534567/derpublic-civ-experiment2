@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, SkipForward } from "lucide-react";
 import introLogo from "@/assets/intro-logo.mp4";
 import introCharacters from "@/assets/intro-characters.mp4";
-import introWorld from "@/assets/intro-world.mp4";
 
 interface IntroSequenceProps {
   onComplete: () => void;
@@ -17,28 +16,28 @@ const textSequences = [
   { text: "Welcome to the", duration: 2500, video: 1, size: "text-3xl md:text-5xl" },
   { text: "EPIC SERVER", duration: 3000, video: 1, size: "text-5xl md:text-8xl", glow: true },
   { text: "DURPUBLIC", duration: 4000, video: 1, size: "text-6xl md:text-9xl", rainbow: true },
-  { text: "", duration: 1500, video: 2 },
-  { text: "A Civilization Experiment", duration: 3000, video: 2, size: "text-3xl md:text-5xl" },
-  { text: "Build. Conquer. Thrive.", duration: 3000, video: 2, glow: true },
-  { text: "Form alliances...", duration: 2500, video: 2 },
-  { text: "Wage wars...", duration: 2500, video: 2 },
-  { text: "Write history...", duration: 2500, video: 2 },
-  { text: "", duration: 1000, video: 2 },
-  { text: "Created by", duration: 2000, video: 2, size: "text-xl md:text-2xl" },
-  { text: "Derpamine", duration: 3000, video: 2, rainbow: true, size: "text-4xl md:text-6xl" },
-  { text: "& the Derpublic Community", duration: 3000, video: 2 },
-  { text: "", duration: 1500, video: 2 },
-  { text: "Are you ready?", duration: 3000, video: 2, size: "text-4xl md:text-7xl", glow: true },
-  { text: "Join Now", duration: 3000, video: 2, size: "text-5xl md:text-8xl", glow: true },
-  { text: "durpublic.net", duration: 4000, video: 2, size: "text-3xl md:text-5xl", sub: "The adventure awaits..." },
+  { text: "", duration: 1500, video: 1 },
+  { text: "A Community of Players", duration: 3000, video: 1, size: "text-3xl md:text-5xl" },
+  { text: "Build. Connect. Grow.", duration: 3000, video: 1, glow: true },
+  { text: "Make friends...", duration: 2500, video: 1 },
+  { text: "Share stories...", duration: 2500, video: 1 },
+  { text: "Create memories...", duration: 2500, video: 1 },
+  { text: "", duration: 1000, video: 1 },
+  { text: "Created by", duration: 2000, video: 1, size: "text-xl md:text-2xl" },
+  { text: "Derpamine", duration: 3000, video: 1, rainbow: true, size: "text-4xl md:text-6xl" },
+  { text: "& the Derpublic Community", duration: 3000, video: 1 },
+  { text: "", duration: 1500, video: 1 },
+  { text: "Are you ready?", duration: 3000, video: 1, size: "text-4xl md:text-7xl", glow: true },
+  { text: "Join Now", duration: 3000, video: 1, size: "text-5xl md:text-8xl", glow: true },
+  { text: "durpublic.net", duration: 4000, video: 1, size: "text-3xl md:text-5xl", sub: "The adventure awaits..." },
 ];
 
-const videos = [introLogo, introCharacters, introWorld];
+const videos = [introLogo, introCharacters];
 
 const IntroSequence = ({ onComplete }: IntroSequenceProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [started, setStarted] = useState(false);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null, null]);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([null, null]);
   const [activeVideo, setActiveVideo] = useState(0);
 
   useEffect(() => {
