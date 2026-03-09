@@ -21,13 +21,11 @@ const Footer = () => {
               <span className="text-lg font-black animate-rainbow bg-[length:200%_auto] bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-yellow-400 via-green-400 via-blue-500 via-purple-500 to-red-500">
                 Derpamine
               </span>
-              <span>👑</span>
             </div>
             {/* Moderator */}
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground">Moderator:</span>
               <span className="text-lg font-bold text-primary">MrWinStreak</span>
-              <span>🛡️</span>
             </div>
           </div>
         </motion.div>
