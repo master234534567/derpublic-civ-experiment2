@@ -9,27 +9,63 @@ interface IntroSequenceProps {
 }
 
 const textSequences = [
+  // ACT 1 — The Opening (Logo video)
+  { text: "", duration: 2500, video: 0 },
+  { text: "Every story has a beginning...", duration: 3500, video: 0, size: "text-2xl md:text-4xl" },
+  { text: "Every legend starts with a single step...", duration: 3500, video: 0, size: "text-2xl md:text-4xl" },
+  { text: "", duration: 1500, video: 0 },
+
+  // ACT 2 — The Reveal (Characters video)
+  { text: "", duration: 2000, video: 1 },
+  { text: "Welcome to", duration: 2500, video: 1, size: "text-3xl md:text-5xl" },
+  { text: "DURPUBLIC", duration: 5000, video: 1, size: "text-6xl md:text-9xl", rainbow: true },
+  { text: "More than just a server.", duration: 3000, video: 1, size: "text-2xl md:text-4xl" },
+  { text: "A home.", duration: 2500, video: 1, size: "text-4xl md:text-6xl", glow: true },
+  { text: "", duration: 1500, video: 1 },
+
+  // ACT 3 — The Community
+  { text: "Built by players, for players.", duration: 3500, video: 1, size: "text-3xl md:text-5xl" },
+  { text: "Real people.", duration: 2500, video: 1, glow: true },
+  { text: "Real friendships.", duration: 2500, video: 1, glow: true },
+  { text: "Real memories.", duration: 2500, video: 1, glow: true },
+  { text: "", duration: 1500, video: 1 },
+
+  // ACT 4 — Events Announcement (5th section)
+  { text: "And this is only the beginning...", duration: 3000, video: 0, size: "text-2xl md:text-4xl" },
+  { text: "", duration: 1500, video: 0 },
+  { text: "DURPUBLIC PRESENTS", duration: 3000, video: 0, size: "text-3xl md:text-5xl", glow: true },
+  { text: "LIVE EVENTS", duration: 3500, video: 0, size: "text-5xl md:text-8xl", rainbow: true },
+  { text: "Tournaments. Build Battles. Community Nights.", duration: 3500, video: 0, size: "text-xl md:text-3xl" },
+  { text: "Hosted every week.", duration: 2500, video: 0, size: "text-2xl md:text-4xl", glow: true },
+  { text: "With prizes, glory, and bragging rights.", duration: 3500, video: 0, size: "text-xl md:text-3xl" },
+  { text: "Stay tuned. Show up. Compete.", duration: 3000, video: 0, size: "text-2xl md:text-4xl", glow: true },
   { text: "", duration: 2000, video: 0 },
-  { text: "In a world of blocks...", duration: 3000, video: 0 },
-  { text: "Where legends are forged...", duration: 3000, video: 0 },
+
+  // ACT 5 — MrWinStreak Appreciation
+  { text: "But none of this would be possible...", duration: 3500, video: 1, size: "text-2xl md:text-4xl" },
+  { text: "without the people who believed in it.", duration: 3500, video: 1, size: "text-2xl md:text-4xl" },
   { text: "", duration: 1500, video: 1 },
-  { text: "Welcome to the", duration: 2500, video: 1, size: "text-3xl md:text-5xl" },
-  { text: "EPIC SERVER", duration: 3000, video: 1, size: "text-5xl md:text-8xl", glow: true },
-  { text: "DURPUBLIC", duration: 4000, video: 1, size: "text-6xl md:text-9xl", rainbow: true },
+  { text: "A special thank you to", duration: 2500, video: 1, size: "text-xl md:text-2xl" },
+  { text: "MrWinStreak", duration: 5000, video: 1, rainbow: true, size: "text-5xl md:text-8xl" },
+  { text: "For the countless hours.", duration: 3000, video: 1, size: "text-2xl md:text-4xl" },
+  { text: "For never giving up.", duration: 3000, video: 1, size: "text-2xl md:text-4xl" },
+  { text: "For building something bigger than himself.", duration: 3500, video: 1, size: "text-2xl md:text-4xl" },
+  { text: "Your dedication inspires every single one of us.", duration: 4000, video: 1, size: "text-xl md:text-3xl", glow: true },
+  { text: "Thank you, MrWinStreak. 🙏", duration: 4500, video: 1, size: "text-3xl md:text-5xl", glow: true },
+  { text: "", duration: 2000, video: 1 },
+
+  // ACT 6 — The Founders
+  { text: "Created by", duration: 2000, video: 0, size: "text-xl md:text-2xl" },
+  { text: "Derpamine", duration: 3500, video: 0, rainbow: true, size: "text-4xl md:text-6xl" },
+  { text: "& the entire Derpublic family", duration: 3500, video: 0, size: "text-2xl md:text-4xl" },
+  { text: "", duration: 2000, video: 0 },
+
+  // ACT 7 — The Call to Action
+  { text: "So...", duration: 2000, video: 1, size: "text-3xl md:text-5xl" },
+  { text: "Are you ready?", duration: 3500, video: 1, size: "text-4xl md:text-7xl", glow: true },
   { text: "", duration: 1500, video: 1 },
-  { text: "A Community of Players", duration: 3000, video: 1, size: "text-3xl md:text-5xl" },
-  { text: "Build. Connect. Grow.", duration: 3000, video: 1, glow: true },
-  { text: "Make friends...", duration: 2500, video: 1 },
-  { text: "Share stories...", duration: 2500, video: 1 },
-  { text: "Create memories...", duration: 2500, video: 1 },
-  { text: "", duration: 1000, video: 1 },
-  { text: "Created by", duration: 2000, video: 1, size: "text-xl md:text-2xl" },
-  { text: "Derpamine", duration: 3000, video: 1, rainbow: true, size: "text-4xl md:text-6xl" },
-  { text: "& the Derpublic Community", duration: 3000, video: 1 },
-  { text: "", duration: 1500, video: 1 },
-  { text: "Are you ready?", duration: 3000, video: 1, size: "text-4xl md:text-7xl", glow: true },
-  { text: "Join Now", duration: 3000, video: 1, size: "text-5xl md:text-8xl", glow: true },
-  { text: "durpublic.net", duration: 4000, video: 1, size: "text-3xl md:text-5xl", sub: "The adventure awaits..." },
+  { text: "JOIN NOW", duration: 4000, video: 1, size: "text-5xl md:text-8xl", glow: true },
+  { text: "durpublic.net", duration: 5000, video: 1, size: "text-3xl md:text-5xl", sub: "Your story starts here." },
 ];
 
 const videos = [introLogo, introCharacters];
